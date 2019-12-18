@@ -2,36 +2,56 @@
  * @fileoverview Disallow ternary statements where the consequent and alternates are true or false
  * @author jmoore914
  */
-"use strict";
+'use strict';
 
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
+const rule = require('../../../lib/rules/no-unnecessary-ternary');
 
-var rule = require("../../../lib/rules/no-unnecessary-ternary"),
-
-    RuleTester = require("eslint").RuleTester;
+const RuleTester = require('eslint').RuleTester;
 
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
-var ruleTester = new RuleTester();
-ruleTester.run("no-unnecessary-ternary", rule, {
+var ruleTester = new RuleTester({parserOptions: {ecmaVersion: 6}});
+ruleTester.run('no-unnecessary-ternary', rule, {
 
-    valid: [
+	valid: [
 
-        // give me some code that won't trigger a warning
-    ],
+		{
+			code: 'function foo(){const a = testCondition ? 1 : 2}'
+		},
+		{
+			code: 'const a = testCondition ? true : true'
+		},
+		{
+			code: 'const a = testCondition ? "true" : false'
+		},
+		{
+			code: 'const a = testCondition ? 1 : true'
+		},
+		{
+			code: 'testCondition ? a=true : a=false'
+		}
+	],
 
-    invalid: [
-        {
-            code: "let a = ifCondition ? true : false",
-            errors: [{
-                message: "Fill me in.",
-                type: "Me too"
-            }]
-        }
-    ]
+	invalid: [
+		{
+			code: 'const a = testCondition ? true : false',
+			output: 'const a = testCondition',
+			errors: [
+				{column: 17, line: 1, type: 'IfStatement', messageId: 'noUnnecessaryTernary'}
+			]
+		},
+		{
+			code: 'const a = testCondition ? false : true',
+			output: 'const a = !(testCondition)',
+			errors: [
+				{column: 17, line: 1, type: 'IfStatement', messageId: 'noUnnecessaryTernary'}
+			]
+		}
+	]
 });

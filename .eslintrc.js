@@ -1,9 +1,9 @@
 module.exports = {
-  root: true,
-  env: {
-	node: true,
-  },
-  extends: [    "eslint:recommended"],
+	env: {
+		node: true,
+		es6: true
+	},
+	extends: ["eslint:recommended"],
 	rules: {
 		indent: ['error', 'tab'],
 		quotes: ['error', 'single', {avoidEscape: true}],
@@ -16,18 +16,14 @@ module.exports = {
 		'no-use-before-define': [2, {functions: false}],
 		'comma-style': ['error', 'last'],
 		'comma-spacing': 2,
-		'function-paren-newline': ['error', 'never'],
+		// 'function-paren-newline': ['error', 'never'],
 		'one-var': [2, 'never'],
-		'semi-style': [2, 'last'],
+		// 'semi-style': [2, 'last'],
 		'no-const-assign': 'error',
 		'array-bracket-spacing': ['error', 'never'],
 		'object-curly-spacing': ['error', 'never'],
 	},
 	"parserOptions": {
-        "ecmaVersion": 2017
-    },
-
-    "env": {
-        "es6": true
-    }
+		"ecmaVersion": 6
+	}
 }

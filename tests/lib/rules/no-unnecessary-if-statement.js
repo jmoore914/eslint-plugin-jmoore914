@@ -8,7 +8,7 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require('../../../lib/rules/no-if-then-return-boolean');
+const rule = require('../../../lib/rules/no-unnecessary-if-statement');
 
 const RuleTester = require('eslint').RuleTester;
 
@@ -17,7 +17,6 @@ const RuleTester = require('eslint').RuleTester;
 // Tests
 //------------------------------------------------------------------------------
 
-// tues dec 10 reyes 10am
 
 const valid = [
 	{
@@ -59,6 +58,24 @@ const valid = [
                 return false;
             }
         }`
+	},
+	{
+		code: `function foo(){
+            if(a){
+                return true;
+            }
+            return true;
+        }`
+	},
+	{
+		code: `function foo(){
+            if(a){
+                return true;
+            }
+            else{
+                return true;
+            }
+        }`
 	}
 
 ];
@@ -78,7 +95,7 @@ const invalid = [
             }
         `,
 		errors: [
-            {column: 17, line: 3, type: 'IfStatement', messageId: 'noIfThenReturnBoolean'}
+			{column: 17, line: 3, type: 'IfStatement', messageId: 'noUnnecessaryIfStatement'}
 		]
 	},
 	{
@@ -98,7 +115,7 @@ const invalid = [
             }
         `,
 		errors: [
-            {column: 17, line: 3, type: 'IfStatement', messageId: 'noIfThenReturnBoolean'}
+			{column: 17, line: 3, type: 'IfStatement', messageId: 'noUnnecessaryIfStatement'}
 		]
 	},
 	{
@@ -116,7 +133,7 @@ const invalid = [
             }
         `,
 		errors: [
-            {column: 17, line: 3, type: 'IfStatement', messageId: 'noIfThenReturnBoolean'}
+			{column: 17, line: 3, type: 'IfStatement', messageId: 'noUnnecessaryIfStatement'}
 		]
 	},
 	{
@@ -135,14 +152,14 @@ const invalid = [
             }
         `,
 		errors: [
-            {column: 17, line: 3, type: 'IfStatement', messageId: 'noIfThenReturnBoolean'}
+			{column: 17, line: 3, type: 'IfStatement', messageId: 'noUnnecessaryIfStatement'}
 		]
 	}
 
 ];
 
 var ruleTester = new RuleTester();
-ruleTester.run('no-if-then-return-boolean', rule, {
+ruleTester.run('no-unnecessary-if-statement', rule, {
 	valid,
 	invalid
 });

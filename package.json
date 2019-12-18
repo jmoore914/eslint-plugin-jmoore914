@@ -13,11 +13,11 @@
     "test": "mocha tests --recursive"
   },
   "dependencies": {
-    "requireindex": "~1.1.0"
+    "requireindex": "~1.2.0"
   },
   "devDependencies": {
-    "eslint": "^3.9.1",
-    "mocha": "^3.1.2"
+    "eslint": "^6.7.2",
+    "mocha": "^6.2.2"
   },
   "engines": {
     "node": ">=0.10.0"

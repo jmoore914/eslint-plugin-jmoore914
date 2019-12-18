@@ -2,36 +2,37 @@
  * @fileoverview Simplify ternary operator expressions
  * @author jmoore914
  */
-"use strict";
+'use strict';
 
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
 
-var rule = require("../../../lib/rules/simplify-ternary"),
+const rule = require('../../../lib/rules/simplify-ternary');
 
-    RuleTester = require("eslint").RuleTester;
+const RuleTester = require('eslint').RuleTester;
 
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
+const valid = [
+	{code: 'const a = testCondition ? consequent : alternate'},
+	{code: 'testCondition ? a = consequent : b = alternate'}
+];
 
-var ruleTester = new RuleTester();
-ruleTester.run("simplify-ternary", rule, {
+const invalid = [
+	{
+		code: 'testCondition ? a =  consequent : a = alternate',
+		output: 'a = testCondition ? consequent : alternate',
+		errors: [
+			{column: 1, line: 1, type: 'ConditionalExpression', messageId: 'simplifyTernary'}
+		]
+	}
+];
 
-    valid: [
-
-        // give me some code that won't trigger a warning
-    ],
-
-    invalid: [
-        {
-            code: "ifCondition ? return consequent : return alternate",
-            errors: [{
-                message: "Fill me in.",
-                type: "Me too"
-            }]
-        }
-    ]
+var ruleTester = new RuleTester({parserOptions: {ecmaVersion: 6}});
+ruleTester.run('simplify-ternary', rule, {
+	valid, 
+	invalid
 });

@@ -8,29 +8,29 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-var rule = require('../../../lib/rules/prefer-ternary'),
+const rule = require('../../../lib/rules/prefer-ternary');
 
-	RuleTester = require('eslint').RuleTester;
+const RuleTester = require('eslint').RuleTester;
 
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
-var ruleTester = new RuleTester();
+var ruleTester = new RuleTester({parserOptions: {ecmaVersion: 6}});
 ruleTester.run('prefer-ternary', rule, {
 
 	valid: [
-		[
-			{
-				code: `function foo(){
+		
+		{
+			code: `function foo(){
                     if(a){
                         b = 1;
                     }
                 }`
-			},
-			{
-				code: `function foo(){
+		},
+		{
+			code: `function foo(){
                     if(a){
                         b = 1
                         doSomeStuff()
@@ -39,8 +39,8 @@ ruleTester.run('prefer-ternary', rule, {
                         b = 2
                     }
             }`
-			}
-		]
+		}
+		
 	],
 
 	invalid: [
@@ -57,11 +57,11 @@ ruleTester.run('prefer-ternary', rule, {
             `,
 			output: `
                 function foo(){
-                    b = a ? 1 : 2;
+                    b = a ? 1 : 2
                 }
             `,
 			errors: [
-                {column: 17, line: 3, type: 'IfStatement', messageId: 'preferTernary'}
+				{column: 21, line: 3, type: 'IfStatement', messageId: 'preferTernary'}
 			]
 		}
 	]
