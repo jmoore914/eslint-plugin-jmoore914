@@ -43,14 +43,14 @@ ruleTester.run('no-unnecessary-ternary', rule, {
 			code: 'const a = testCondition ? true : false',
 			output: 'const a = testCondition',
 			errors: [
-				{column: 17, line: 1, type: 'IfStatement', messageId: 'noUnnecessaryTernary'}
+				{column: 11, line: 1, type: 'ConditionalExpression', messageId: 'noUnnecessaryTernary'}
 			]
 		},
 		{
 			code: 'const a = testCondition ? false : true',
 			output: 'const a = !(testCondition)',
 			errors: [
-				{column: 17, line: 1, type: 'IfStatement', messageId: 'noUnnecessaryTernary'}
+				{column: 11, line: 1, type: 'ConditionalExpression', messageId: 'noUnnecessaryTernary'}
 			]
 		}
 	]
