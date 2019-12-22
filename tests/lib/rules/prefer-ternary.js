@@ -163,20 +163,20 @@ ruleTester.run('prefer-ternary', rule, {
 		                c = 2;
 		            }`,
 			options: ['always'],
-			output: 'a ? b=1 : c=2',
+			output: 'a ? b = 1 : c = 2',
 			errors: [
 				{column: 1, line: 1, type: 'IfStatement', messageId: 'preferTernary'}
 			]
 		},
 		{
 			code: `if(a){
-		                b  = 1;
+		                b = 1;
 		            } 
 		            else{
-		                c =  2;
+		                c = 2;
 		            }`,
 			options: [{assignment: 'any'}],
-			output: 'a ? b=1 : c=2',
+			output: 'a ? b = 1 : c = 2',
 			errors: [
 				{column: 1, line: 1, type: 'IfStatement', messageId: 'preferTernary'}
 			]
@@ -221,13 +221,13 @@ ruleTester.run('prefer-ternary', rule, {
 		},
 		{
 			code: `if(a){
-		                foo();
+		                foo(param1, [param2, param3]);
 		            } 
 		            else{
 		                bar();
 		            }`,
 			options: [{call: true}],
-			output: 'a ? foo() : bar()',
+			output: 'a ? foo(param1, [param2, param3]) : bar()',
 			errors: [
 				{column: 1, line: 1, type: 'IfStatement', messageId: 'preferTernary'}
 			]
