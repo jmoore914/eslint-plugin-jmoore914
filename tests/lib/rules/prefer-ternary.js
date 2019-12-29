@@ -30,7 +30,7 @@ ruleTester.run('prefer-ternary', rule, {
 		{
 			code: `if(a){
 		                b = 1
-		                doSomeStuff()
+		                doSomeStuff(c)
 		            }
 		            else{
 		                b = 2
